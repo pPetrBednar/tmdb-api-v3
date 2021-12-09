@@ -7,6 +7,7 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
 import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
 
 /**
+ * Wrapper for series result.
  *
  * @author Petr Bednář
  */

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 
 /**
+ * Wrapper for series results.
  *
  * @author Petr Bednář
  */

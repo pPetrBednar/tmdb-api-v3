@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
 import io.github.ppetrbednar.tmdb.wrappers.meta.CreatedBy;
-import io.github.ppetrbednar.tmdb.wrappers.meta.Crew;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Genre;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Network;
 import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCompany;
@@ -14,6 +13,7 @@ import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCountry;
 import io.github.ppetrbednar.tmdb.wrappers.meta.SpokenLanguage;
 
 /**
+ * Wrapper for series metadata.
  *
  * @author Petr Bednář
  */

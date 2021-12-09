@@ -11,6 +11,7 @@ import io.github.ppetrbednar.tmdb.api.exception.ApiException;
 import io.github.ppetrbednar.tmdb.wrappers.response.StatusCode;
 
 /**
+ * Controller for obtaining data from TMDB API.
  *
  * @author Petr Bednář
  */

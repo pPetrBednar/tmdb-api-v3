@@ -1,6 +1,7 @@
 package io.github.ppetrbednar.tmdb.api;
 
 /**
+ * Selector for supported cover sizes.
  *
  * @author Petr Bednář
  */

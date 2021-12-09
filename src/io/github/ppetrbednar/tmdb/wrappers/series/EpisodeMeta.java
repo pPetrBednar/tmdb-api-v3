@@ -4,15 +4,11 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
-import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
-import io.github.ppetrbednar.tmdb.wrappers.meta.Collection;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Crew;
 import io.github.ppetrbednar.tmdb.wrappers.meta.GuestStar;
-import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCompany;
-import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCountry;
-import io.github.ppetrbednar.tmdb.wrappers.meta.SpokenLanguage;
 
 /**
+ * Wrapper for episode metadata.
  *
  * @author Petr Bednář
  */

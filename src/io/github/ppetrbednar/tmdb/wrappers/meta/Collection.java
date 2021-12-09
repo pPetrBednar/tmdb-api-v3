@@ -4,6 +4,7 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 
 /**
+ * Wrapper for collection.
  *
  * @author Petr Bednář
  */

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.wrappers.response.StatusCode;
 
 /**
+ * Wrapper for api exceptions. May contain more exceptions under same code.
  *
  * @author Petr Bednář
  */

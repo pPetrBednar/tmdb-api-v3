@@ -3,6 +3,7 @@ package io.github.ppetrbednar.tmdb.wrappers.response;
 import java.util.LinkedList;
 
 /**
+ * Wrapper for TMDB status codes.
  *
  * @author Petr Bednář
  */

@@ -4,9 +4,9 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
-import io.github.ppetrbednar.tmdb.tools.JsonConvertable;
 
 /**
+ * Wrapper for movie results.
  *
  * @author Petr Bednář
  */

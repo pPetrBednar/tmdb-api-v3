@@ -1,6 +1,7 @@
 package io.github.ppetrbednar.tmdb.wrappers.language;
 
 /**
+ * Wrapper for ISO 639 languages.
  *
  * @author Petr Bednář
  */

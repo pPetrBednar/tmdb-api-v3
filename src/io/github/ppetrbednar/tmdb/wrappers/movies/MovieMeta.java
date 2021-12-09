@@ -12,6 +12,7 @@ import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCountry;
 import io.github.ppetrbednar.tmdb.wrappers.meta.SpokenLanguage;
 
 /**
+ * Wrapper for movie metadata.
  *
  * @author Petr Bednář
  */
