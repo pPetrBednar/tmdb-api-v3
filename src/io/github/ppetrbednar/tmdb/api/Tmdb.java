@@ -21,7 +21,7 @@ public class Tmdb {
 
     private static final String TV = "https://api.themoviedb.org/3/tv/";
     private static final String MOVIE = "https://api.themoviedb.org/3/movie/";
-    private static final String IMAGE = "https://image.tmdb.org/t/p/w500";
+    private static final String IMAGE = "https://image.tmdb.org/t/p/";
 
     private final String API_KEY;
     private final Localization LANG;
@@ -77,10 +77,10 @@ public class Tmdb {
         }
     }
 
-    public File getImage(String image) {
+    public File getCover(String image, CoverSize coverSize) {
         try {
             File file = File.createTempFile("temp", ".jpg");
-            FileUtils.copyURLToFile(new URL(IMAGE + image), file, 10000, 10000);
+            FileUtils.copyURLToFile(new URL(IMAGE + coverSize.getCommand() + image), file, 10000, 10000);
             return file;
         } catch (IOException ex) {
             return null;
