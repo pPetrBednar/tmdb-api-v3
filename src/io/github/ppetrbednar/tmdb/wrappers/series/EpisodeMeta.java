@@ -104,4 +104,63 @@ public class EpisodeMeta {
         return voteCount;
     }
 
+    /*
+    
+            airDate = Convertor.convertString(json.get("air_date"));
+        episodeNumber = Convertor.convertInt(json.get("episode_number"));
+
+        crew = new LinkedList<>();
+        if (json.get("crew") != null) {
+            for (Object obj : (JsonArray) json.get("crew")) {
+                crew.add(new Crew((JsonObject) obj));
+            }
+        }
+
+        guestStars = new LinkedList<>();
+        if (json.get("guest_stars") != null) {
+            for (Object obj : (JsonArray) json.get("guest_stars")) {
+                guestStars.add(new GuestStar((JsonObject) obj));
+            }
+        }
+
+        id = Convertor.convertInt(json.get("id"));
+        name = Convertor.convertString(json.get("name"));
+        overview = Convertor.convertString(json.get("overview"));
+        productionCode = Convertor.convertString(json.get("production_code"));
+        seasonNumber = Convertor.convertInt(json.get("season_number"));
+        stillPath = Convertor.convertString(json.get("still_path"));
+        voteAverage = Convertor.convertDouble(json.get("vote_average"));
+        voteCount = Convertor.convertInt(json.get("vote_count"));
+    
+     */
+    public JsonObject toJsonObject() {
+        JsonObject output = new JsonObject();
+
+        output.put("air_date", airDate);
+        output.put("episode_number", episodeNumber);
+
+        JsonArray crewArray = new JsonArray();
+        crew.forEach((t) -> {
+            crewArray.add(t.toJsonObject());
+        });
+        output.put("crew", crewArray);
+
+        JsonArray guestStarsArray = new JsonArray();
+        guestStars.forEach((t) -> {
+            guestStarsArray.add(t.toJsonObject());
+        });
+        output.put("guest_stars", guestStarsArray);
+
+        output.put("id", id);
+        output.put("name", name);
+        output.put("overview", overview);
+        output.put("production_code", productionCode);
+        output.put("season_number", seasonNumber);
+        output.put("still_path", stillPath);
+        output.put("vote_average", voteAverage);
+        output.put("vote_count", voteCount);
+
+        return output;
+    }
+
 }

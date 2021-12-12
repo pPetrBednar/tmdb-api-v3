@@ -80,4 +80,22 @@ public class GuestStar {
         return profilePath;
     }
 
+    public JsonObject toJsonObject() {
+        JsonObject output = new JsonObject();
+
+        output.put("credit_id", creditId);
+        output.put("order", order);
+        output.put("character", character);
+        output.put("adult", adult);
+        output.put("gender", gender);
+        output.put("id", id);
+        output.put("known_for_department", knownForDepartment);
+        output.put("name", name);
+        output.put("original_name", originalName);
+        output.put("popularity", popularity);
+        output.put("profile_path", profilePath);
+
+        return output;
+    }
+
 }

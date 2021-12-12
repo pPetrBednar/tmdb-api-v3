@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import io.github.ppetrbednar.tmdb.api.exception.ApiException;
 import io.github.ppetrbednar.tmdb.wrappers.response.StatusCode;
+import java.net.URLEncoder;
 
 /**
  * Controller for obtaining data from TMDB API.
