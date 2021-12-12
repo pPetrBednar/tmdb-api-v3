@@ -10,15 +10,15 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
  */
 public class Genre {
 
-    private final double id;
+    private final int id;
     private final String name;
 
     public Genre(JsonObject json) {
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         name = Convertor.convertString(json.get("name"));
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 

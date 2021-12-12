@@ -10,21 +10,21 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
  */
 public class CreatedBy {
 
-    private final double id;
+    private final int id;
     private final String creditId;
     private final String name;
-    private final double gender;
+    private final int gender;
     private final String profilePath;
 
     public CreatedBy(JsonObject json) {
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         creditId = Convertor.convertString(json.get("credit_id"));
         name = Convertor.convertString(json.get("name"));
-        gender = Convertor.convertDouble(json.get("gender"));
+        gender = Convertor.convertInt(json.get("gender"));
         profilePath = Convertor.convertString(json.get("profile_path"));
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -36,7 +36,7 @@ public class CreatedBy {
         return name;
     }
 
-    public double getGender() {
+    public int getGender() {
         return gender;
     }
 

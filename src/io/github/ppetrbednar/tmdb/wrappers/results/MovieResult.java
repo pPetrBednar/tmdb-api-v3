@@ -15,8 +15,8 @@ public class MovieResult {
 
     private final boolean adult;
     private final String backdropPath;
-    private final LinkedList<Double> genreIds;
-    private final double id;
+    private final LinkedList<Integer> genreIds;
+    private final int id;
     private final ISO_639 originalLanguage;
     private final String originalTitle;
     private final String overview;
@@ -26,7 +26,7 @@ public class MovieResult {
     private final String title;
     private final boolean video;
     private final double voteAverage;
-    private final double voteCount;
+    private final int voteCount;
 
     public MovieResult(JsonObject json) {
         adult = Convertor.convertBoolean(json.get("adult"));
@@ -34,10 +34,10 @@ public class MovieResult {
         genreIds = new LinkedList<>();
 
         for (Object obj : (JsonArray) json.get("genre_ids")) {
-            genreIds.add(Convertor.convertDouble(obj));
+            genreIds.add(Convertor.convertInt(obj));
         }
 
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         originalLanguage = new ISO_639(Convertor.convertString(json.get("original_language")));
         originalTitle = Convertor.convertString(json.get("original_title"));
         overview = Convertor.convertString(json.get("overview"));
@@ -47,7 +47,7 @@ public class MovieResult {
         title = Convertor.convertString(json.get("title"));
         video = Convertor.convertBoolean(json.get("video"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
-        voteCount = Convertor.convertDouble(json.get("vote_count"));
+        voteCount = Convertor.convertInt(json.get("vote_count"));
 
     }
 
@@ -59,11 +59,11 @@ public class MovieResult {
         return backdropPath;
     }
 
-    public LinkedList<Double> getGenreIds() {
+    public LinkedList<Integer> getGenreIds() {
         return genreIds;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -103,7 +103,7 @@ public class MovieResult {
         return voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 

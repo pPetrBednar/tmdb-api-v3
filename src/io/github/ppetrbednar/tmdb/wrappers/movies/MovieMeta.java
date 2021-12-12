@@ -21,10 +21,10 @@ public class MovieMeta {
     private final boolean adult;
     private final String backdropPath;
     private final Collection belongsToCollection;
-    private final double budget;
+    private final int budget;
     private final LinkedList<Genre> genres;
     private final String homepage;
-    private final double id;
+    private final int id;
     private final String imdbId;
     private final ISO_639 originalLanguage;
     private final String originalTitle;
@@ -34,15 +34,15 @@ public class MovieMeta {
     private final LinkedList<ProductionCompany> productionCompanies;
     private final LinkedList<ProductionCountry> productionCountries;
     private final String releaseDate;
-    private final double revenue;
-    private final double runtime;
+    private final int revenue;
+    private final int runtime;
     private final LinkedList<SpokenLanguage> spokenLanguages;
     private final String status;
     private final String tagline;
     private final String title;
     private final boolean video;
     private final double voteAverage;
-    private final double voteCount;
+    private final int voteCount;
 
     public MovieMeta(JsonObject json) {
         adult = Convertor.convertBoolean(json.get("adult"));
@@ -59,7 +59,7 @@ public class MovieMeta {
         }
 
         homepage = Convertor.convertString(json.get("homepage"));
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         imdbId = Convertor.convertString(json.get("imdb_id"));
         originalLanguage = new ISO_639(Convertor.convertString(json.get("original_language")));
         originalTitle = Convertor.convertString(json.get("original_title"));
@@ -83,8 +83,8 @@ public class MovieMeta {
 
         releaseDate = Convertor.convertString(json.get("release_date"));
 
-        revenue = Convertor.convertDouble(json.get("revenue"));
-        runtime = Convertor.convertDouble(json.get("runtime"));
+        revenue = Convertor.convertInt(json.get("revenue"));
+        runtime = Convertor.convertInt(json.get("runtime"));
 
         spokenLanguages = new LinkedList<>();
         if (json.get("spoken_languages") != null) {
@@ -98,7 +98,7 @@ public class MovieMeta {
         title = Convertor.convertString(json.get("title"));
         video = Convertor.convertBoolean(json.get("video"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
-        voteCount = Convertor.convertDouble(json.get("vote_count"));
+        voteCount = Convertor.convertInt(json.get("vote_count"));
     }
 
     public boolean isAdult() {
@@ -113,7 +113,7 @@ public class MovieMeta {
         return belongsToCollection;
     }
 
-    public double getBudget() {
+    public int getBudget() {
         return budget;
     }
 
@@ -125,7 +125,7 @@ public class MovieMeta {
         return homepage;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -165,11 +165,11 @@ public class MovieMeta {
         return releaseDate;
     }
 
-    public double getRevenue() {
+    public int getRevenue() {
         return revenue;
     }
 
-    public double getRuntime() {
+    public int getRuntime() {
         return runtime;
     }
 
@@ -197,7 +197,7 @@ public class MovieMeta {
         return voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 

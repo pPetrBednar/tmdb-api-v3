@@ -12,24 +12,24 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
  */
 public class MovieResults {
 
-    private final double page;
+    private final int page;
     private final LinkedList<MovieResult> results;
-    private final double totalPages;
-    private final double totalResults;
+    private final int totalPages;
+    private final int totalResults;
 
     public MovieResults(JsonObject json) {
-        page = Convertor.convertDouble(json.get("page"));
+        page = Convertor.convertInt(json.get("page"));
         results = new LinkedList<>();
 
         for (Object obj : (JsonArray) json.get("results")) {
             results.add(new MovieResult((JsonObject) obj));
         }
 
-        totalPages = Convertor.convertDouble(json.get("total_pages"));
-        totalResults = Convertor.convertDouble(json.get("total_results"));
+        totalPages = Convertor.convertInt(json.get("total_pages"));
+        totalResults = Convertor.convertInt(json.get("total_results"));
     }
 
-    public double getPage() {
+    public int getPage() {
         return page;
     }
 
@@ -37,11 +37,11 @@ public class MovieResults {
         return results;
     }
 
-    public double getTotalPages() {
+    public int getTotalPages() {
         return totalPages;
     }
 
-    public double getTotalResults() {
+    public int getTotalResults() {
         return totalResults;
     }
 

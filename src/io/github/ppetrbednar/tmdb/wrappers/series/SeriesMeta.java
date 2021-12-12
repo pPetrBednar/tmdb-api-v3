@@ -21,11 +21,11 @@ public class SeriesMeta {
 
     private final String backdropPath;
     private final LinkedList<CreatedBy> createdby;
-    private final LinkedList<Double> episodeRunTime;
+    private final LinkedList<Integer> episodeRunTime;
     private final String firstAirDate;
     private final LinkedList<Genre> genres;
     private final String homepage;
-    private final double id;
+    private final int id;
     private final boolean inProduction;
     private final LinkedList<ISO_639> languages;
     private final String lastAirDate;
@@ -33,8 +33,8 @@ public class SeriesMeta {
     private final String name;
     private final EpisodeMeta nextEpisodeToAir;
     private final LinkedList<Network> networks;
-    private final double numberOfEpisodes;
-    private final double numberOfSeasons;
+    private final int numberOfEpisodes;
+    private final int numberOfSeasons;
     private final LinkedList<String> originCountry;
     private final ISO_639 originalLanguage;
     private final String originalName;
@@ -49,7 +49,7 @@ public class SeriesMeta {
     private final String tagline;
     private final String type;
     private final double voteAverage;
-    private final double voteCount;
+    private final int voteCount;
 
     public SeriesMeta(JsonObject json) {
         backdropPath = Convertor.convertString(json.get("backdrop_path"));
@@ -64,7 +64,7 @@ public class SeriesMeta {
         this.episodeRunTime = new LinkedList<>();
         if (json.get("episode_run_time") != null) {
             for (Object obj : (JsonArray) json.get("episode_run_time")) {
-                this.episodeRunTime.add(Convertor.convertDouble(obj));
+                this.episodeRunTime.add(Convertor.convertInt(obj));
             }
         }
 
@@ -78,7 +78,7 @@ public class SeriesMeta {
         }
 
         homepage = Convertor.convertString(json.get("homepage"));
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         inProduction = Convertor.convertBoolean(json.get("in_production"));
 
         this.languages = new LinkedList<>();
@@ -100,8 +100,8 @@ public class SeriesMeta {
             }
         }
 
-        numberOfEpisodes = Convertor.convertDouble(json.get("number_of_episodes"));
-        numberOfSeasons = Convertor.convertDouble(json.get("number_of_seasons"));
+        numberOfEpisodes = Convertor.convertInt(json.get("number_of_episodes"));
+        numberOfSeasons = Convertor.convertInt(json.get("number_of_seasons"));
 
         this.originCountry = new LinkedList<>();
         if (json.get("origin_country") != null) {
@@ -148,7 +148,7 @@ public class SeriesMeta {
         tagline = Convertor.convertString(json.get("tagline"));
         type = Convertor.convertString(json.get("type"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
-        voteCount = Convertor.convertDouble(json.get("vote_count"));
+        voteCount = Convertor.convertInt(json.get("vote_count"));
     }
 
     public String getBackdropPath() {
@@ -159,7 +159,7 @@ public class SeriesMeta {
         return createdby;
     }
 
-    public LinkedList<Double> getEpisodeRunTime() {
+    public LinkedList<Integer> getEpisodeRunTime() {
         return episodeRunTime;
     }
 
@@ -175,7 +175,7 @@ public class SeriesMeta {
         return homepage;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -207,11 +207,11 @@ public class SeriesMeta {
         return networks;
     }
 
-    public double getNumberOfEpisodes() {
+    public int getNumberOfEpisodes() {
         return numberOfEpisodes;
     }
 
-    public double getNumberOfSeasons() {
+    public int getNumberOfSeasons() {
         return numberOfSeasons;
     }
 
@@ -271,7 +271,7 @@ public class SeriesMeta {
         return voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 

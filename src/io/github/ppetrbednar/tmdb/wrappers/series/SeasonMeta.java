@@ -12,19 +12,19 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
  */
 public class SeasonMeta {
 
-    private final double _id;
+    private final String _id;
     private final String airDate;
     private final LinkedList<EpisodeMeta> episodes;
-    private final double episodeCount;
+    private final int episodeCount;
     private final String name;
     private final String overview;
-    private final double id;
+    private final int id;
     private final String posterPath;
-    private final double seasonNumber;
+    private final int seasonNumber;
 
     public SeasonMeta(JsonObject json) {
 
-        _id = Convertor.convertDouble(json.get("_id"));
+        _id = Convertor.convertString(json.get("_id"));
         airDate = Convertor.convertString(json.get("air_date"));
 
         episodes = new LinkedList<>();
@@ -34,15 +34,15 @@ public class SeasonMeta {
             }
         }
 
-        episodeCount = Convertor.convertDouble(json.get("episode_count")) == 0 ? episodes.size() : Convertor.convertInt(json.get("episode_count"));
+        episodeCount = Convertor.convertInt(json.get("episode_count")) == 0 ? episodes.size() : Convertor.convertInt(json.get("episode_count"));
         name = Convertor.convertString(json.get("name"));
         overview = Convertor.convertString(json.get("overview"));
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         posterPath = Convertor.convertString(json.get("poster_path"));
-        seasonNumber = Convertor.convertDouble(json.get("season_number"));
+        seasonNumber = Convertor.convertInt(json.get("season_number"));
     }
 
-    public double get_Id() {
+    public String get_Id() {
         return _id;
     }
 
@@ -54,7 +54,7 @@ public class SeasonMeta {
         return episodes;
     }
 
-    public double getEpisodeCount() {
+    public int getEpisodeCount() {
         return episodeCount;
     }
 
@@ -66,7 +66,7 @@ public class SeasonMeta {
         return overview;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -74,7 +74,7 @@ public class SeasonMeta {
         return posterPath;
     }
 
-    public double getSeasonNumber() {
+    public int getSeasonNumber() {
         return seasonNumber;
     }
 

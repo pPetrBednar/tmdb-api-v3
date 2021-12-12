@@ -11,13 +11,13 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
 public class Network {
 
     private final String name;
-    private final double id;
+    private final int id;
     private final String logoPath;
     private final String originCountry;
 
     public Network(JsonObject json) {
         name = Convertor.convertString(json.get("name"));
-        id = Convertor.convertDouble(json.get("id"));
+        id = Convertor.convertInt(json.get("id"));
         logoPath = Convertor.convertString(json.get("logo_path"));
         originCountry = Convertor.convertString(json.get("origin_country"));
     }
@@ -26,7 +26,7 @@ public class Network {
         return name;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 

@@ -4,11 +4,11 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 
 /**
- * Wrapper for crew.
+ * Wrapper for cast.
  *
  * @author Petr Bednář
  */
-public class Crew {
+public class Cast {
 
     private final boolean adult;
     private final int gender;
@@ -18,11 +18,11 @@ public class Crew {
     private final String originalName;
     private final double popularity;
     private final String profilePath;
+    private final String character;
     private final String creditId;
-    private final String department;
-    private final String job;
+    private final String order;
 
-    public Crew(JsonObject json) {
+    public Cast(JsonObject json) {
 
         adult = Convertor.convertBoolean(json.get("adult"));
         gender = Convertor.convertInt(json.get("gender"));
@@ -32,9 +32,9 @@ public class Crew {
         originalName = Convertor.convertString(json.get("original_name"));
         popularity = Convertor.convertDouble(json.get("popularity"));
         profilePath = Convertor.convertString(json.get("profile_path"));
+        character = Convertor.convertString(json.get("character"));
         creditId = Convertor.convertString(json.get("credit_id"));
-        department = Convertor.convertString(json.get("department"));
-        job = Convertor.convertString(json.get("job"));
+        order = Convertor.convertString(json.get("order"));
     }
 
     public boolean isAdult() {
@@ -69,16 +69,16 @@ public class Crew {
         return profilePath;
     }
 
+    public String getCharacter() {
+        return character;
+    }
+
     public String getCreditId() {
         return creditId;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public String getJob() {
-        return job;
+    public String getOrder() {
+        return order;
     }
 
 }

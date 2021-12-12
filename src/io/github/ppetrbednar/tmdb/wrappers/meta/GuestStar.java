@@ -10,12 +10,12 @@ import io.github.ppetrbednar.tmdb.tools.Convertor;
  */
 public class GuestStar {
 
-    private final String character;
     private final String creditId;
-    private final double order;
+    private final int order;
+    private final String character;
     private final boolean adult;
-    private final double gender;
-    private final double id;
+    private final int gender;
+    private final int id;
     private final String knownForDepartment;
     private final String name;
     private final String originalName;
@@ -23,12 +23,12 @@ public class GuestStar {
     private final String profilePath;
 
     public GuestStar(JsonObject json) {
-        character = Convertor.convertString(json.get("character"));
         creditId = Convertor.convertString(json.get("credit_id"));
-        order = Convertor.convertDouble(json.get("order"));
+        order = Convertor.convertInt(json.get("order"));
+        character = Convertor.convertString(json.get("character"));
         adult = Convertor.convertBoolean(json.get("adult"));
-        gender = Convertor.convertDouble(json.get("gender"));
-        id = Convertor.convertDouble(json.get("id"));
+        gender = Convertor.convertInt(json.get("gender"));
+        id = Convertor.convertInt(json.get("id"));
         knownForDepartment = Convertor.convertString(json.get("known_for_department"));
         name = Convertor.convertString(json.get("name"));
         originalName = Convertor.convertString(json.get("original_name"));
@@ -36,27 +36,27 @@ public class GuestStar {
         profilePath = Convertor.convertString(json.get("profile_path"));
     }
 
-    public String getCharacter() {
-        return character;
-    }
-
     public String getCreditId() {
         return creditId;
     }
 
-    public double getOrder() {
+    public int getOrder() {
         return order;
+    }
+
+    public String getCharacter() {
+        return character;
     }
 
     public boolean isAdult() {
         return adult;
     }
 
-    public double getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 

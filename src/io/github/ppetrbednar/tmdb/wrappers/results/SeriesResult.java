@@ -16,7 +16,7 @@ public class SeriesResult {
     private final String backdropPath;
     private final String firstAirDate;
     private final LinkedList<Double> genreIds;
-    private final double id;
+    private final int id;
     private final String name;
     private final LinkedList<String> originCountry;
     private final ISO_639 originalLanguage;
@@ -25,7 +25,7 @@ public class SeriesResult {
     private final double popularity;
     private final String posterPath;
     private final double voteAverage;
-    private final double voteCount;
+    private final int voteCount;
 
     public SeriesResult(JsonObject json) {
         backdropPath = Convertor.convertString(json.get("backdrop_path"));
@@ -66,7 +66,7 @@ public class SeriesResult {
         return genreIds;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
@@ -102,7 +102,7 @@ public class SeriesResult {
         return voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 

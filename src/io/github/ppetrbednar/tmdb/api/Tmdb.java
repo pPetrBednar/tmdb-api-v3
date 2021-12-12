@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
 import io.github.ppetrbednar.tmdb.api.exception.ApiException;
+import io.github.ppetrbednar.tmdb.wrappers.meta.Credits;
 import io.github.ppetrbednar.tmdb.wrappers.movies.MovieMeta;
 import io.github.ppetrbednar.tmdb.wrappers.results.MovieResults;
 import io.github.ppetrbednar.tmdb.wrappers.results.SeriesResults;
@@ -26,9 +27,11 @@ public class Tmdb {
     private static final int READ_TIMEOUT = 10000;
 
     private static final String SERIES = "https://api.themoviedb.org/3/tv/";
-    private static final String SEARCH_SERIES = "https://api.themoviedb.org/3/search/tv";
+    private static final String SERIES_SEARCH = "https://api.themoviedb.org/3/search/tv";
+
     private static final String MOVIE = "https://api.themoviedb.org/3/movie/";
-    private static final String SEARCH_MOVIE = "https://api.themoviedb.org/3/search/movie";
+    private static final String MOVIE_SEARCH = "https://api.themoviedb.org/3/search/movie";
+
     private static final String IMAGE = "https://image.tmdb.org/t/p/";
 
     private final String API_KEY;
@@ -48,6 +51,42 @@ public class Tmdb {
     }
 
     /**
+     * Searches for series credits by inputted id.
+     *
+     * @param seriesId Series ID.
+     * @return Credits or null.
+     * @throws ApiException
+     */
+    public Credits getSeriesCredits(int seriesId) throws ApiException {
+        try {
+            String data = ApiCall.call(SERIES + seriesId + "/credits" + SUFFIX);
+            JsonObject json = (JsonObject) Jsoner.deserialize(data);
+            Credits meta = new Credits(json);
+            return meta;
+        } catch (JsonException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Searches for movie credits by inputted id.
+     *
+     * @param movieId Movie ID.
+     * @return Credits or null.
+     * @throws ApiException
+     */
+    public Credits getMovieCredits(int movieId) throws ApiException {
+        try {
+            String data = ApiCall.call(MOVIE + movieId + "/credits" + SUFFIX);
+            JsonObject json = (JsonObject) Jsoner.deserialize(data);
+            Credits meta = new Credits(json);
+            return meta;
+        } catch (JsonException ex) {
+            return null;
+        }
+    }
+
+    /**
      * Searches for series by inputted parameters.
      *
      * @param title Series title.
@@ -56,7 +95,7 @@ public class Tmdb {
      */
     public SeriesResults searchForSeries(String title) throws ApiException {
         try {
-            String data = ApiCall.call(SEARCH_SERIES + SUFFIX + "&query=" + title);
+            String data = ApiCall.call(SERIES_SEARCH + SUFFIX + "&query=" + title);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
             SeriesResults meta = new SeriesResults(json);
             return meta;
@@ -74,7 +113,7 @@ public class Tmdb {
      */
     public MovieResults searchForMovie(String title) throws ApiException {
         try {
-            String data = ApiCall.call(SEARCH_MOVIE + SUFFIX + "&query=" + title);
+            String data = ApiCall.call(MOVIE_SEARCH + SUFFIX + "&query=" + title);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
             MovieResults meta = new MovieResults(json);
             return meta;

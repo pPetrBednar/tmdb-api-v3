@@ -19,4 +19,12 @@ public enum Localization {
         return language;
     }
 
+    public static Localization getValueOf(String localization) {
+        try {
+            return valueOf(localization);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return null;
+        }
+    }
+
 }

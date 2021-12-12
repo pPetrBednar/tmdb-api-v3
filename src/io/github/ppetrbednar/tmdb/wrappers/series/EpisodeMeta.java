@@ -15,21 +15,22 @@ import io.github.ppetrbednar.tmdb.wrappers.meta.GuestStar;
 public class EpisodeMeta {
 
     private final String airDate;
+    private final int episodeNumber;
     private final LinkedList<Crew> crew;
-    private final double episodeNumber;
     private final LinkedList<GuestStar> guestStars;
+    private final int id;
     private final String name;
     private final String overview;
-    private final double id;
     private final String productionCode;
-    private final double seasonNumber;
+    private final int seasonNumber;
     private final String stillPath;
     private final double voteAverage;
-    private final double voteCount;
+    private final int voteCount;
 
     public EpisodeMeta(JsonObject json) {
 
         airDate = Convertor.convertString(json.get("air_date"));
+        episodeNumber = Convertor.convertInt(json.get("episode_number"));
 
         crew = new LinkedList<>();
         if (json.get("crew") != null) {
@@ -38,8 +39,6 @@ public class EpisodeMeta {
             }
         }
 
-        episodeNumber = Convertor.convertDouble(json.get("episode_number"));
-
         guestStars = new LinkedList<>();
         if (json.get("guest_stars") != null) {
             for (Object obj : (JsonArray) json.get("guest_stars")) {
@@ -47,30 +46,34 @@ public class EpisodeMeta {
             }
         }
 
+        id = Convertor.convertInt(json.get("id"));
         name = Convertor.convertString(json.get("name"));
         overview = Convertor.convertString(json.get("overview"));
-        id = Convertor.convertDouble(json.get("id"));
         productionCode = Convertor.convertString(json.get("production_code"));
-        seasonNumber = Convertor.convertDouble(json.get("season_number"));
+        seasonNumber = Convertor.convertInt(json.get("season_number"));
         stillPath = Convertor.convertString(json.get("still_path"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
-        voteCount = Convertor.convertDouble(json.get("vote_count"));
+        voteCount = Convertor.convertInt(json.get("vote_count"));
     }
 
     public String getAirDate() {
         return airDate;
     }
 
+    public int getEpisodeNumber() {
+        return episodeNumber;
+    }
+
     public LinkedList<Crew> getCrew() {
         return crew;
     }
 
-    public double getEpisodeNumber() {
-        return episodeNumber;
-    }
-
     public LinkedList<GuestStar> getGuestStars() {
         return guestStars;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -81,15 +84,11 @@ public class EpisodeMeta {
         return overview;
     }
 
-    public double getId() {
-        return id;
-    }
-
     public String getProductionCode() {
         return productionCode;
     }
 
-    public double getSeasonNumber() {
+    public int getSeasonNumber() {
         return seasonNumber;
     }
 
@@ -101,7 +100,7 @@ public class EpisodeMeta {
         return voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
