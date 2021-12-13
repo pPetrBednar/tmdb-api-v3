@@ -1,5 +1,6 @@
 package io.github.ppetrbednar.tmdb.api;
 
+import io.github.ppetrbednar.tmdb.wrappers.image.PosterSize;
 import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
 import io.github.ppetrbednar.tmdb.api.exception.ApiException;
+import io.github.ppetrbednar.tmdb.wrappers.image.ICoverSize;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Credits;
 import io.github.ppetrbednar.tmdb.wrappers.movies.MovieMeta;
 import io.github.ppetrbednar.tmdb.wrappers.results.MovieResults;
@@ -256,7 +258,7 @@ public class Tmdb {
      * @param coverSize Selected cover size preset.
      * @return Temporary file in default TEMP directory.
      */
-    public File getCover(String image, CoverSize coverSize) {
+    public File getCover(String image, ICoverSize coverSize) {
         try {
             File file = File.createTempFile("temp", ".jpg");
             file.deleteOnExit();
