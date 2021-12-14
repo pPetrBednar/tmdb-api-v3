@@ -41,6 +41,8 @@ public class Tmdb {
 
     private static final String IMAGE = "https://image.tmdb.org/t/p/";
 
+    private static final String APPEND_CREDITS = "&append_to_response=credits";
+
     private final String API_KEY;
     private final Localization LANG;
     private final String SUFFIX;
@@ -151,11 +153,40 @@ public class Tmdb {
      * Obtains series metadata from TMDB API.
      *
      * @param seriesId Series ID.
+     * @return Series metadata or null.
+     * @throws ApiException
+     */
+    public SeriesMeta getSeriesMetaWithCredits(int seriesId) throws ApiException {
+        try {
+            String data = ApiCall.call(SERIES + seriesId + SUFFIX + APPEND_CREDITS);
+            JsonObject json = (JsonObject) Jsoner.deserialize(data);
+            SeriesMeta meta = new SeriesMeta(json);
+            return meta;
+        } catch (JsonException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Obtains series metadata from TMDB API.
+     *
+     * @param seriesId Series ID.
      * @return Series metadata json string.
      * @throws ApiException
      */
     public String getSeriesMetaJson(int seriesId) throws ApiException {
         return ApiCall.call(SERIES + seriesId + SUFFIX);
+    }
+
+    /**
+     * Obtains series metadata from TMDB API.
+     *
+     * @param seriesId Series ID.
+     * @return Series metadata json string.
+     * @throws ApiException
+     */
+    public String getSeriesMetaJsonWithCredits(int seriesId) throws ApiException {
+        return ApiCall.call(SERIES + seriesId + SUFFIX + APPEND_CREDITS);
     }
 
     /**
@@ -232,6 +263,24 @@ public class Tmdb {
     public MovieMeta getMovieMeta(int movieId) throws ApiException {
         try {
             String data = ApiCall.call(MOVIE + movieId + SUFFIX);
+            JsonObject json = (JsonObject) Jsoner.deserialize(data);
+            MovieMeta meta = new MovieMeta(json);
+            return meta;
+        } catch (JsonException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Obtains movie metadata from TMDB API.
+     *
+     * @param movieId Movie ID.
+     * @return Movie metadata or null.
+     * @throws ApiException
+     */
+    public MovieMeta getMovieMetaWithCredits(int movieId) throws ApiException {
+        try {
+            String data = ApiCall.call(MOVIE + movieId + SUFFIX + APPEND_CREDITS);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
             MovieMeta meta = new MovieMeta(json);
             return meta;

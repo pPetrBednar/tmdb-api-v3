@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
 import io.github.ppetrbednar.tmdb.wrappers.meta.CreatedBy;
+import io.github.ppetrbednar.tmdb.wrappers.meta.Credits;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Genre;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Network;
 import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCompany;
@@ -50,6 +51,8 @@ public class SeriesMeta {
     private final String type;
     private final double voteAverage;
     private final int voteCount;
+
+    private final Credits credits;
 
     public SeriesMeta(JsonObject json) {
         backdropPath = Convertor.convertString(json.get("backdrop_path"));
@@ -149,6 +152,8 @@ public class SeriesMeta {
         type = Convertor.convertString(json.get("type"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
         voteCount = Convertor.convertInt(json.get("vote_count"));
+
+        credits = json.get("credits") == null ? null : new Credits((JsonObject) json.get("credits"));
     }
 
     public String getBackdropPath() {
@@ -273,6 +278,10 @@ public class SeriesMeta {
 
     public int getVoteCount() {
         return voteCount;
+    }
+
+    public Credits getCredits() {
+        return credits;
     }
 
 }

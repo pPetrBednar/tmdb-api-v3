@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Collection;
+import io.github.ppetrbednar.tmdb.wrappers.meta.Credits;
 import io.github.ppetrbednar.tmdb.wrappers.meta.Genre;
 import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCompany;
 import io.github.ppetrbednar.tmdb.wrappers.meta.ProductionCountry;
@@ -43,6 +44,8 @@ public class MovieMeta {
     private final boolean video;
     private final double voteAverage;
     private final int voteCount;
+
+    private final Credits credits;
 
     public MovieMeta(JsonObject json) {
         adult = Convertor.convertBoolean(json.get("adult"));
@@ -99,6 +102,8 @@ public class MovieMeta {
         video = Convertor.convertBoolean(json.get("video"));
         voteAverage = Convertor.convertDouble(json.get("vote_average"));
         voteCount = Convertor.convertInt(json.get("vote_count"));
+
+        credits = json.get("credits") == null ? null : new Credits((JsonObject) json.get("credits"));
     }
 
     public boolean isAdult() {
@@ -199,6 +204,10 @@ public class MovieMeta {
 
     public int getVoteCount() {
         return voteCount;
+    }
+
+    public Credits getCredits() {
+        return credits;
     }
 
 }

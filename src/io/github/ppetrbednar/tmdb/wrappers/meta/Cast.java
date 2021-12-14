@@ -20,7 +20,7 @@ public class Cast {
     private final String profilePath;
     private final String character;
     private final String creditId;
-    private final String order;
+    private final int order;
 
     public Cast(JsonObject json) {
 
@@ -34,7 +34,7 @@ public class Cast {
         profilePath = Convertor.convertString(json.get("profile_path"));
         character = Convertor.convertString(json.get("character"));
         creditId = Convertor.convertString(json.get("credit_id"));
-        order = Convertor.convertString(json.get("order"));
+        order = Convertor.convertInt(json.get("order"));
     }
 
     public boolean isAdult() {
@@ -77,7 +77,7 @@ public class Cast {
         return creditId;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
