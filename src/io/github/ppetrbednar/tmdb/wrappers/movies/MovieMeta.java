@@ -35,7 +35,7 @@ public class MovieMeta {
     private final LinkedList<ProductionCompany> productionCompanies;
     private final LinkedList<ProductionCountry> productionCountries;
     private final String releaseDate;
-    private final int revenue;
+    private final double revenue;
     private final int runtime;
     private final LinkedList<SpokenLanguage> spokenLanguages;
     private final String status;
@@ -86,7 +86,7 @@ public class MovieMeta {
 
         releaseDate = Convertor.convertString(json.get("release_date"));
 
-        revenue = Convertor.convertInt(json.get("revenue"));
+        revenue = Convertor.convertDouble(json.get("revenue"));
         runtime = Convertor.convertInt(json.get("runtime"));
 
         spokenLanguages = new LinkedList<>();
@@ -170,7 +170,7 @@ public class MovieMeta {
         return releaseDate;
     }
 
-    public int getRevenue() {
+    public double getRevenue() {
         return revenue;
     }
 

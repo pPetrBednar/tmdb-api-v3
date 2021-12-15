@@ -301,6 +301,17 @@ public class Tmdb {
     }
 
     /**
+     * Obtains movie metadata from TMDB API.
+     *
+     * @param movieId Movie ID.
+     * @return Movie metadata json string.
+     * @throws ApiException
+     */
+    public String getMovieMetaJsonWithCredits(int movieId) throws ApiException {
+        return ApiCall.call(MOVIE + movieId + SUFFIX + APPEND_CREDITS);
+    }
+
+    /**
      * Downloads image from TMDB servers to temporary file. Temporary file is usable until VM exit.
      *
      * @param image Image location on TMDB servers (/image.jpg).
