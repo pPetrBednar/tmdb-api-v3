@@ -6,25 +6,23 @@ package io.github.ppetrbednar.tmdb.api;
  * @author Petr Bednář
  */
 public enum Localization {
+
     EN_US("en-US"),
     CS_CZ("cs-CZ");
 
-    private final String language;
+    public final String localization;
 
-    private Localization(String language) {
-        this.language = language;
-    }
-
-    public String getLanguage() {
-        return language;
+    Localization(String localization) {
+        this.localization = localization;
     }
 
     public static Localization getValueOf(String localization) {
-        try {
-            return valueOf(localization);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            return null;
+        for (Localization l : Localization.values()) {
+            if (l.localization.equals(localization)) {
+                return l;
+            }
         }
+        return null;
     }
 
 }

@@ -2,7 +2,9 @@ package io.github.ppetrbednar.tmdb.wrappers.series;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
+
 import java.util.LinkedList;
+
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 import io.github.ppetrbednar.tmdb.wrappers.language.ISO_639;
 import io.github.ppetrbednar.tmdb.wrappers.meta.CreatedBy;
@@ -20,6 +22,7 @@ import io.github.ppetrbednar.tmdb.wrappers.meta.SpokenLanguage;
  */
 public class SeriesMeta {
 
+    private final boolean adult;
     private final String backdropPath;
     private final LinkedList<CreatedBy> createdby;
     private final LinkedList<Integer> episodeRunTime;
@@ -55,6 +58,8 @@ public class SeriesMeta {
     private final Credits credits;
 
     public SeriesMeta(JsonObject json) {
+
+        adult = Convertor.convertBoolean(json.get("adult"));
         backdropPath = Convertor.convertString(json.get("backdrop_path"));
 
         this.createdby = new LinkedList<>();
@@ -113,7 +118,7 @@ public class SeriesMeta {
             }
         }
 
-        originalLanguage = new ISO_639(Convertor.convertString("original_language"));
+        originalLanguage = new ISO_639(Convertor.convertString(json.get("original_language")));
         originalName = Convertor.convertString(json.get("original_name"));
         overview = Convertor.convertString(json.get("overview"));
         popularity = Convertor.convertDouble(json.get("popularity"));
@@ -140,6 +145,16 @@ public class SeriesMeta {
             }
         }
 
+        var containedSeasons = json.keySet().stream().filter(s -> s.startsWith("season/")).toList();
+        if (!containedSeasons.isEmpty()) {
+            this.seasons.clear();
+            for (var key : containedSeasons) {
+                JsonObject jsonObject = (JsonObject) json.get(key);
+                this.seasons.add(new SeasonMeta(jsonObject));
+            }
+        }
+
+
         this.spokenLanguages = new LinkedList<>();
         if (json.get("spoken_languages") != null) {
             for (Object obj : (JsonArray) json.get("spoken_languages")) {
@@ -154,6 +169,10 @@ public class SeriesMeta {
         voteCount = Convertor.convertInt(json.get("vote_count"));
 
         credits = json.get("credits") == null ? null : new Credits((JsonObject) json.get("credits"));
+    }
+
+    public boolean isAdult() {
+        return adult;
     }
 
     public String getBackdropPath() {

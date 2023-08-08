@@ -2,7 +2,9 @@ package io.github.ppetrbednar.tmdb.wrappers.series;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
+
 import java.util.LinkedList;
+
 import io.github.ppetrbednar.tmdb.tools.Convertor;
 
 /**
@@ -21,6 +23,7 @@ public class SeasonMeta {
     private final int id;
     private final String posterPath;
     private final int seasonNumber;
+    private final double voteAverage;
 
     public SeasonMeta(JsonObject json) {
 
@@ -40,6 +43,7 @@ public class SeasonMeta {
         id = Convertor.convertInt(json.get("id"));
         posterPath = Convertor.convertString(json.get("poster_path"));
         seasonNumber = Convertor.convertInt(json.get("season_number"));
+        voteAverage = Convertor.convertDouble(json.get("vote_average"));
     }
 
     public String get_Id() {
@@ -78,4 +82,7 @@ public class SeasonMeta {
         return seasonNumber;
     }
 
+    public double getVoteAverage() {
+        return voteAverage;
+    }
 }
