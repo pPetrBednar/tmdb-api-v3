@@ -18,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -35,11 +36,13 @@ public class Tmdb {
     private static final int CONNECTION_TIMEOUT = 10000;
     private static final int READ_TIMEOUT = 10000;
 
-    private static final String SERIES = "https://api.themoviedb.org/3/tv/";
-    private static final String SERIES_SEARCH = "https://api.themoviedb.org/3/search/tv";
+    private final String API_URL;
 
-    private static final String MOVIE = "https://api.themoviedb.org/3/movie/";
-    private static final String MOVIE_SEARCH = "https://api.themoviedb.org/3/search/movie";
+    private final String SERIES;
+    private final String SERIES_SEARCH;
+
+    private final String MOVIE;
+    private final String MOVIE_SEARCH;
 
     private static final String IMAGE = "https://image.tmdb.org/t/p/";
     private static final String APPEND_KEYWORD = "&append_to_response=";
@@ -58,6 +61,30 @@ public class Tmdb {
         this.API_KEY = apiKey;
         this.LANG = language;
         this.SUFFIX = "?api_key=" + apiKey + "&language=" + language.localization;
+
+        API_URL = "https://api.themoviedb.org";
+        SERIES = API_URL + "/3/tv/";
+        SERIES_SEARCH = API_URL + "/3/search/tv";
+        MOVIE = API_URL + "/3/movie/";
+        MOVIE_SEARCH = API_URL + "/3/search/movie";
+    }
+
+    /**
+     * Creates an instance of TMDB API Controller.
+     *
+     * @param apiUrl   URL address of TMDB v3 API.
+     * @param language Selected localization language.
+     */
+    public Tmdb(URI apiUrl, Localization language) {
+        this.API_KEY = null;
+        this.LANG = language;
+        this.SUFFIX = "?language=" + language.localization;
+
+        API_URL = apiUrl.toString();
+        SERIES = API_URL + "/3/tv/";
+        SERIES_SEARCH = API_URL + "/3/search/tv";
+        MOVIE = API_URL + "/3/movie/";
+        MOVIE_SEARCH = API_URL + "/3/search/movie";
     }
 
     /**
@@ -65,14 +92,12 @@ public class Tmdb {
      *
      * @param seriesId Series ID.
      * @return Credits or null.
-     * @throws ApiException
      */
     public Credits getSeriesCredits(int seriesId) throws ApiException {
         try {
             String data = ApiCall.call(SERIES + seriesId + "/credits" + SUFFIX);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            Credits meta = new Credits(json);
-            return meta;
+            return new Credits(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -83,14 +108,12 @@ public class Tmdb {
      *
      * @param movieId Movie ID.
      * @return Credits or null.
-     * @throws ApiException
      */
     public Credits getMovieCredits(int movieId) throws ApiException {
         try {
             String data = ApiCall.call(MOVIE + movieId + "/credits" + SUFFIX);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            Credits meta = new Credits(json);
-            return meta;
+            return new Credits(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -101,14 +124,12 @@ public class Tmdb {
      *
      * @param title Series title.
      * @return Series results or null.
-     * @throws ApiException
      */
     public SeriesResults searchForSeries(String title) throws ApiException {
         try {
             String data = ApiCall.call(SERIES_SEARCH + SUFFIX + "&query=" + URLEncoder.encode(title, StandardCharsets.UTF_8));
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            SeriesResults meta = new SeriesResults(json);
-            return meta;
+            return new SeriesResults(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -119,14 +140,12 @@ public class Tmdb {
      *
      * @param title Movie title.
      * @return Movie results or null.
-     * @throws ApiException
      */
     public MovieResults searchForMovie(String title) throws ApiException {
         try {
             String data = ApiCall.call(MOVIE_SEARCH + SUFFIX + "&query=" + URLEncoder.encode(title, StandardCharsets.UTF_8));
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            MovieResults meta = new MovieResults(json);
-            return meta;
+            return new MovieResults(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -137,7 +156,6 @@ public class Tmdb {
      *
      * @param seriesId Series ID.
      * @return Series metadata or null.
-     * @throws ApiException
      */
     public SeriesMeta getSeriesMeta(int seriesId) throws ApiException {
         try {
@@ -170,7 +188,6 @@ public class Tmdb {
      *
      * @param seriesMeta SeriesMeta
      * @return Series metadata or null.
-     * @throws ApiException
      */
     public SeriesMeta getSeriesMeta(SeriesMeta seriesMeta) throws ApiException {
         try {
@@ -236,7 +253,6 @@ public class Tmdb {
      *
      * @param seriesId Series ID.
      * @return Series metadata or null.
-     * @throws ApiException
      */
     public SeriesMeta getSeriesMetaWithCredits(int seriesId) throws ApiException {
         try {
@@ -269,7 +285,6 @@ public class Tmdb {
      *
      * @param seriesMeta SeriesMeta
      * @return Series metadata or null.
-     * @throws ApiException
      */
     public SeriesMeta getSeriesMetaWithCredits(SeriesMeta seriesMeta) throws ApiException {
         try {
@@ -299,7 +314,6 @@ public class Tmdb {
      *
      * @param seriesId Series ID.
      * @return Series metadata json string.
-     * @throws ApiException
      */
     public String getSeriesMetaJson(int seriesId) throws ApiException {
         try {
@@ -323,7 +337,6 @@ public class Tmdb {
      *
      * @param seriesId Series ID.
      * @return Series metadata json string.
-     * @throws ApiException
      */
     public String getSeriesMetaJsonWithCredits(int seriesId) throws ApiException {
         try {
@@ -348,14 +361,12 @@ public class Tmdb {
      * @param seriesId     Series ID.
      * @param seasonNumber Season number.
      * @return Season metadata or null.
-     * @throws ApiException
      */
     public SeasonMeta getSeasonMeta(int seriesId, int seasonNumber) throws ApiException {
         try {
             String data = ApiCall.call(SERIES + seriesId + "/season/" + seasonNumber + SUFFIX);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            SeasonMeta meta = new SeasonMeta(json);
-            return meta;
+            return new SeasonMeta(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -367,7 +378,6 @@ public class Tmdb {
      * @param seriesId     Series ID.
      * @param seasonNumber Season number.
      * @return Season metadata json string.
-     * @throws ApiException
      */
     public String getSeasonMetaJson(int seriesId, int seasonNumber) throws ApiException {
         return ApiCall.call(SERIES + seriesId + "/season/" + seasonNumber + SUFFIX);
@@ -380,14 +390,12 @@ public class Tmdb {
      * @param seasonNumber  Season number.
      * @param episodeNumber Episode number.
      * @return Episode metadata or null.
-     * @throws ApiException
      */
     public EpisodeMeta getEpisodeMeta(int seriesId, int seasonNumber, int episodeNumber) throws ApiException {
         try {
             String data = ApiCall.call(SERIES + seriesId + "/season/" + seasonNumber + "/episode/" + episodeNumber + SUFFIX);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            EpisodeMeta meta = new EpisodeMeta(json);
-            return meta;
+            return new EpisodeMeta(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -400,7 +408,6 @@ public class Tmdb {
      * @param seasonNumber  Season number.
      * @param episodeNumber Episode number.
      * @return Episode metadata json string.
-     * @throws ApiException
      */
     public String getEpisodeMetaJson(int seriesId, int seasonNumber, int episodeNumber) throws ApiException {
         return ApiCall.call(SERIES + seriesId + "/season/" + seasonNumber + "/episode/" + episodeNumber + SUFFIX);
@@ -411,14 +418,12 @@ public class Tmdb {
      *
      * @param movieId Movie ID.
      * @return Movie metadata or null.
-     * @throws ApiException
      */
     public MovieMeta getMovieMeta(int movieId) throws ApiException {
         try {
             String data = ApiCall.call(MOVIE + movieId + SUFFIX);
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            MovieMeta meta = new MovieMeta(json);
-            return meta;
+            return new MovieMeta(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -429,14 +434,12 @@ public class Tmdb {
      *
      * @param movieId Movie ID.
      * @return Movie metadata or null.
-     * @throws ApiException
      */
     public MovieMeta getMovieMetaWithCredits(int movieId) throws ApiException {
         try {
             String data = ApiCall.call(MOVIE + movieId + SUFFIX + APPEND_KEYWORD + "credits");
             JsonObject json = (JsonObject) Jsoner.deserialize(data);
-            MovieMeta meta = new MovieMeta(json);
-            return meta;
+            return new MovieMeta(json);
         } catch (JsonException ex) {
             return null;
         }
@@ -447,7 +450,6 @@ public class Tmdb {
      *
      * @param movieId Movie ID.
      * @return Movie metadata json string.
-     * @throws ApiException
      */
     public String getMovieMetaJson(int movieId) throws ApiException {
         return ApiCall.call(MOVIE + movieId + SUFFIX);
@@ -458,7 +460,6 @@ public class Tmdb {
      *
      * @param movieId Movie ID.
      * @return Movie metadata json string.
-     * @throws ApiException
      */
     public String getMovieMetaJsonWithCredits(int movieId) throws ApiException {
         return ApiCall.call(MOVIE + movieId + SUFFIX + APPEND_KEYWORD + "credits");
