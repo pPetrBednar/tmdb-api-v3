@@ -10,8 +10,8 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ApiCall {
 
-    private static final Logger LOG = LogManager.getLogger(ApiCall.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiCall.class);
 
     public enum Method {
         GET("GET"),
@@ -44,7 +44,7 @@ public class ApiCall {
     }
 
     public static String get(String url, String token) throws ApiException {
-        LOG.info("Sending GET request to: " + url);
+        log.info("Sending GET request to: " + url);
         HttpGet request = new HttpGet(url);
         if (token != null) {
             request.addHeader("Authorization", "Bearer " + token);
@@ -57,16 +57,16 @@ public class ApiCall {
             try (CloseableHttpResponse response = httpclient.execute(request)) {
 
                 if (response.getCode() != 200) {
-                    LOG.warn("Request response: " + response.getCode());
+                    log.warn("Request response: " + response.getCode());
                     throw new ApiException(new LinkedList<>(StatusCode.getValuesForHttpStatus(response.getCode())));
                 }
 
-                LOG.info("Request response: 200");
+                log.info("Request response: 200");
                 HttpEntity result = response.getEntity();
                 return EntityUtils.toString(result);
             }
         } catch (IOException | ParseException e) {
-            LOG.error("Request response: 500");
+            log.error("Request response: 500");
             throw new ApiException(new LinkedList<>(List.of(StatusCode.C11)));
         }
     }

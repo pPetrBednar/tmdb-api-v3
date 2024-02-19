@@ -6,7 +6,7 @@
 
     <groupId>io.github.ppetrbednar</groupId>
     <artifactId>tmdb-api-v3</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
@@ -33,16 +33,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.19.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
